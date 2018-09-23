@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BooksCarouselComponent } from './components/books-carousel/books-carousel.component';
+import { FindBooksComponent } from './books/find-books/find-books.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'books', pathMatch: 'full'},
-  {path: 'books', component: BooksCarouselComponent}
+  {path: 'books', component: FindBooksComponent}
 ];
 
 @NgModule({

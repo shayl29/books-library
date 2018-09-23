@@ -1,0 +1,6 @@
+<div class="col-sm-12 mb-3">
+    <app-book-search [query]="searchQuery$ | async" [searching]="loading$ | async" [error]="error$ | async" (search)="search($event)"></app-book-search>
+</div>
+<div class="col-sm-12">
+    <app-book-list [books]="selectedBooks | async"></app-book-list>
+</div>

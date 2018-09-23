@@ -1,0 +1,11 @@
+<div class="card bg-dark text-white">
+  <img class="card-img-top img-responsive" [src]="book.volumeInfo.imageLinks.smallThumbnail" alt="Book thumbnail" />
+  <div class="card-body">
+    <h5 class="card-title">{{book.volumeInfo.title}}</h5>
+    <h6 class="card-subtitle text-muted mb-2">{{book.volumeInfo.subtitle}}</h6>
+    <p class="card-text">{{book.volumeInfo.description}}</p>
+  </div>
+  <div class="card-footer">
+    <a href="{{book.volumeInfo.imageLinks.thumbnail}}" class="btn btn-primary btn-sm">More</a>
+  </div>
+</div>
