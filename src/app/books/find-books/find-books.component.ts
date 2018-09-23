@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { take, first } from 'rxjs/operators';
 import * as BookActions from '../actions/book.actions';
 import * as fromBooks from '../state'
 import { Book } from '../../models/book';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 
 @Component({
@@ -18,8 +19,14 @@ export class FindBooksComponent implements OnInit {
   selectedBooks: Observable<Book[]>;
   loading$: Observable<boolean>;
   error$: Observable<string>;
+  
+  selectedBook: Book;
+  modalRef: BsModalRef;
 
-  constructor(private store: Store<fromBooks.State>) {
+  constructor(
+    private store: Store<fromBooks.State>,
+    private modalService: BsModalService
+  ) {
     this.searchQuery$ = store.pipe(
       select(fromBooks.getSearchQuery),
       take(1)
@@ -38,5 +45,29 @@ export class FindBooksComponent implements OnInit {
 
   search(query: string) {
     this.store.dispatch(new BookActions.Search(query));
+  }
+
+  showAddModal(template: TemplateRef<any>) {
+    this.openModal(template);
+  }
+
+  showEditModal(template: TemplateRef<any>, book: Book) {
+    this.selectedBook = book;
+    this.openModal(template);
+  }
+
+  showDeleteModal(template: TemplateRef<any>, book: Book) {
+    this.selectedBook = book;
+    this.openModal(template);
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+  }
+
+  deleteBook() {
+    console.log(this.selectedBook);
+    this.modalRef.hide();
+    // TODO: Delete book from store
   }
 }

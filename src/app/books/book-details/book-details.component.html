@@ -6,6 +6,10 @@
     <p class="card-text">{{book.volumeInfo.description}}</p>
   </div>
   <div class="card-footer">
-    <a href="{{book.volumeInfo.imageLinks.thumbnail}}" class="btn btn-primary btn-sm">More</a>
+    <div class="pull-right">
+      <label><strong>Published Date:</strong> {{book.volumeInfo.publishedDate | date:'dd/MM/yyyy'}}</label>
+    </div>
+    <a (click)="onEditClick.emit(book)" class="btn btn-info btn-sm mr-1">Edit</a>
+    <a (click)="onDeleteClick.emit(book)" class="btn btn-danger btn-sm">Delete</a>
   </div>
 </div>

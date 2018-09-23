@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Book } from '../../models/book';
 
@@ -9,4 +9,6 @@ import { Book } from '../../models/book';
 })
 export class BookDetailsComponent {
   @Input() book: Observable<Book>;
+  @Output() onEditClick: EventEmitter<any> = new EventEmitter();
+  @Output() onDeleteClick: EventEmitter<any> = new EventEmitter();
 }

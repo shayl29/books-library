@@ -5,7 +5,7 @@ export interface Book {
         subtitle: string;
         authors: string[];
         publisher: string;
-        publishDate: string;
+        publishedDate: string;
         description: string;
         averageRating: number;
         ratingsCount: number;
@@ -24,7 +24,7 @@ export function generateMockBook(): Book {
             subtitle: 'subtitle',
             authors: ['author'],
             publisher: 'publisher',
-            publishDate: '',
+            publishedDate: '',
             description: 'description',
             averageRating: 3,
             ratingsCount: 5,
