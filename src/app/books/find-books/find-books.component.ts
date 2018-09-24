@@ -34,7 +34,7 @@ export class FindBooksComponent implements OnInit {
 
     this.books$ = store.pipe(select(fromBooks.getSearchResults));
     this.selectedBooks = this.books$.pipe(
-      select(f => f.slice(0, 5)));
+      select(f => f.slice(0, 10)));
 
     this.loading$ = store.pipe(select(fromBooks.getSearchLoading));
     this.error$ = store.pipe(select(fromBooks.getSearchError));

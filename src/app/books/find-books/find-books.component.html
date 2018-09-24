@@ -1,9 +1,7 @@
 <div class="row mb-3">
-    <div class="col-sm-1">
-        <button (click)="showAddModal(addBookTemplate)" class="btn btn-primary text-white"><i class="fa fa-plus"></i>&nbsp;Add
-            Book</button>
-    </div>
-    <div class="col-sm-4">
+    <button (click)="showAddModal(addBookTemplate)" class="btn btn-primary text-white ml-2"><i class="fa fa-plus"></i>&nbsp;Add
+        Book</button>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
         <app-book-search [query]="searchQuery$ | async" [searching]="loading$ | async" [error]="error$ | async"
             (search)="search($event)"></app-book-search>
     </div>
@@ -11,8 +9,7 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <app-book-list (onDeleteClick)="showDeleteModal(deleteBookTemplate, $event)" 
-            (onEditClick)="showEditModal(editBookTemplate, $event)"
+        <app-book-list (onDeleteClick)="showDeleteModal(deleteBookTemplate, $event)" (onEditClick)="showEditModal(editBookTemplate, $event)"
             [books]="selectedBooks | async"></app-book-list>
     </div>
 </div>

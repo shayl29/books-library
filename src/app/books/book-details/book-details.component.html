@@ -1,14 +1,21 @@
 <div class="card bg-dark text-white">
-  <img class="card-img-top img-responsive" [src]="book.volumeInfo.imageLinks.smallThumbnail" alt="Book thumbnail" />
+  <img class="card-img-top img-responsive" src="{{book.volumeInfo.imageLinks.smallThumbnail | fixThumbnail}}" alt="Book thumbnail" />
   <div class="card-body">
-    <h5 class="card-title">{{book.volumeInfo.title}}</h5>
+    <h5 class="card-title">{{book.volumeInfo.title | title}}</h5>
     <h6 class="card-subtitle text-muted mb-2">{{book.volumeInfo.subtitle}}</h6>
-    <p class="card-text">{{book.volumeInfo.description}}</p>
+    <p class="card-text">{{book.volumeInfo.description | ellipsis}}</p>
+    <hr/>
+    <h6 class="card-subtitle">Written By:</h6>
+    <span>
+      {{book.volumeInfo.authors | addCommas}}
+    </span>
+    <hr/>
+    <h6 class="card-subtitle">Published Date:</h6>
+    <span>
+      {{book.volumeInfo.publishedDate | date:'dd/MM/yyyy'}}
+    </span>
   </div>
   <div class="card-footer">
-    <div class="pull-right">
-      <label><strong>Published Date:</strong> {{book.volumeInfo.publishedDate | date:'dd/MM/yyyy'}}</label>
-    </div>
     <a (click)="onEditClick.emit(book)" class="btn btn-info btn-sm mr-1">Edit</a>
     <a (click)="onDeleteClick.emit(book)" class="btn btn-danger btn-sm">Delete</a>
   </div>

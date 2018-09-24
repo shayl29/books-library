@@ -6,6 +6,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { reducers } from './state';
 import { BookEffects } from './effects/book.effects';
+import { PipesModule } from '../shared/pipes';
 
 import { FindBooksComponent } from './find-books/find-books.component';
 import { BookSearchComponent } from './book-search/book-search.component';
@@ -15,6 +16,7 @@ import { BookDetailsComponent } from './book-details/book-details.component';
 @NgModule({
     imports: [
         CommonModule,
+        PipesModule,
         StoreModule.forFeature('books', reducers),
         EffectsModule.forFeature([BookEffects]),
         ModalModule.forRoot(),
