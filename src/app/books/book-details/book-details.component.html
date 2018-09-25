@@ -1,5 +1,5 @@
 <div class="card bg-dark text-white">
-  <img class="card-img-top img-responsive" src="{{book.volumeInfo.imageLinks.smallThumbnail | fixThumbnail}}" alt="Book thumbnail" />
+  <img class="card-img-top img-responsive" *ngIf="book.volumeInfo.imageLinks" src="{{book.volumeInfo.imageLinks.smallThumbnail | fixThumbnail}}" alt="Book thumbnail" />
   <div class="card-body">
     <h5 class="card-title">{{book.volumeInfo.title | title}}</h5>
     <h6 class="card-subtitle text-muted mb-2">{{book.volumeInfo.subtitle}}</h6>
@@ -12,11 +12,11 @@
     <hr/>
     <h6 class="card-subtitle">Published Date:</h6>
     <span>
-      {{book.volumeInfo.publishedDate | date:'dd/MM/yyyy'}}
+      {{book.volumeInfo.publishedDate | dateFormat:'dd/MM/yyyy'}}
     </span>
   </div>
   <div class="card-footer">
-    <a (click)="onEditClick.emit(book)" class="btn btn-info btn-sm mr-1">Edit</a>
-    <a (click)="onDeleteClick.emit(book)" class="btn btn-danger btn-sm">Delete</a>
+    <a (click)="editClicked.emit(book)" class="btn btn-info btn-sm mr-1">Edit</a>
+    <a (click)="deleteClicked.emit(book)" class="btn btn-danger btn-sm">Delete</a>
   </div>
 </div>

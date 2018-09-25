@@ -9,6 +9,6 @@ import { Book } from '../../models/book';
 })
 export class BookDetailsComponent {
   @Input() book: Observable<Book>;
-  @Output() onEditClick: EventEmitter<any> = new EventEmitter();
-  @Output() onDeleteClick: EventEmitter<any> = new EventEmitter();
+  @Output() editClicked: EventEmitter<any> = new EventEmitter();
+  @Output() deleteClicked: EventEmitter<any> = new EventEmitter();
 }

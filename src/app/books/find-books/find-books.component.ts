@@ -1,12 +1,11 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { take, first } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import * as BookActions from '../actions/book.actions';
-import * as fromBooks from '../state'
-import { Book } from '../../models/book';
+import * as fromBooks from '../state';
+import { Book, generateMockBook } from '../../models/book';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-
 
 @Component({
   selector: 'app-find-books',
@@ -16,10 +15,9 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 export class FindBooksComponent implements OnInit {
   searchQuery$: Observable<string>;
   books$: Observable<Book[]>;
-  selectedBooks: Observable<Book[]>;
   loading$: Observable<boolean>;
   error$: Observable<string>;
-  
+
   selectedBook: Book;
   modalRef: BsModalRef;
 
@@ -32,22 +30,32 @@ export class FindBooksComponent implements OnInit {
       take(1)
     );
 
-    this.books$ = store.pipe(select(fromBooks.getSearchResults));
-    this.selectedBooks = this.books$.pipe(
-      select(f => f.slice(0, 10)));
+    this.books$ = store.pipe(select(fromBooks.getBookCollection));
 
-    this.loading$ = store.pipe(select(fromBooks.getSearchLoading));
+    store
+      .pipe(select(fromBooks.isBookAdded))
+      .subscribe(() => this.hide());
+
+    store
+      .pipe(select(fromBooks.isbookUpdated))
+      .subscribe(() => this.hide());
+
+    store
+      .pipe(select(fromBooks.isBookRemoved))
+      .subscribe(() => this.hide());
+
+    this.loading$ = store.pipe(select(fromBooks.getBookLoading));
     this.error$ = store.pipe(select(fromBooks.getSearchError));
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   search(query: string) {
     this.store.dispatch(new BookActions.Search(query));
   }
 
   showAddModal(template: TemplateRef<any>) {
+    this.selectedBook = generateMockBook();
     this.openModal(template);
   }
 
@@ -65,9 +73,23 @@ export class FindBooksComponent implements OnInit {
     this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
   }
 
+  addBook(book) {
+    this.store.dispatch(new BookActions.AddBook(book));
+  }
+
+  saveBook(book) {
+    this.store.dispatch(new BookActions.EditBook(book));
+  }
+
   deleteBook() {
-    console.log(this.selectedBook);
+    this.store.dispatch(new BookActions.RemoveBook(this.selectedBook));
     this.modalRef.hide();
     // TODO: Delete book from store
+  }
+
+  private hide() {
+    if (this.modalRef) {
+      this.modalRef.hide();
+    }
   }
 }

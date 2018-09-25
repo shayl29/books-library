@@ -24,7 +24,7 @@ export function generateMockBook(): Book {
             subtitle: 'subtitle',
             authors: ['author'],
             publisher: 'publisher',
-            publishedDate: '',
+            publishedDate: '1970-01-01',
             description: 'description',
             averageRating: 3,
             ratingsCount: 5,

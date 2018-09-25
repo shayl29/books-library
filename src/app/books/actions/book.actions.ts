@@ -8,10 +8,10 @@ export enum BookActionTypes {
     Select = '[Book] Select',
     AddBook = '[Book] Add Book',
     AddBookSuccess = '[Book] Add Book Success',
-    AddBookFail = '[Book] Add Book Fail',
+    EditBook = '[Book] Edit Book',
+    EditBookSuccess = '[Book] Edit Book Success',
     RemoveBook = '[Book] Remove Book',
     RemoveBookSuccess = '[Book] Remove Book Success',
-    RemoveBookFail = '[Book] Remove Book Fail',
     Load = '[Book] Load',
     LoadSuccess = '[Book] Load Success',
     LoadFail = '[Book] Load Fail',
@@ -29,10 +29,16 @@ export class AddBookSuccess implements Action {
     constructor(public payload: Book) { }
 }
 
-export class AddBookFail implements Action {
-    readonly type = BookActionTypes.AddBookFail;
+export class EditBook implements Action {
+  readonly type = BookActionTypes.EditBook;
 
-    constructor(public payload: Book) { }
+  constructor(public payload: Book) { }
+}
+
+export class EditBookSuccess implements Action {
+  readonly type = BookActionTypes.EditBookSuccess;
+
+  constructor(public payload: Book) { }
 }
 
 export class RemoveBook implements Action {
@@ -43,12 +49,6 @@ export class RemoveBook implements Action {
 
 export class RemoveBookSuccess implements Action {
     readonly type = BookActionTypes.RemoveBookSuccess;
-
-    constructor(public payload: Book) { }
-}
-
-export class RemoveBookFail implements Action {
-    readonly type = BookActionTypes.RemoveBookFail;
 
     constructor(public payload: Book) { }
 }
@@ -103,10 +103,10 @@ export type BookActions =
     | Select
     | AddBook
     | AddBookSuccess
-    | AddBookFail
+    | EditBook
+    | EditBookSuccess
     | RemoveBook
     | RemoveBookSuccess
-    | RemoveBookFail
     | Load
     | LoadSuccess
     | LoadFail;

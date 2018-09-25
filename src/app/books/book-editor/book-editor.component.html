@@ -1,0 +1,68 @@
+<form [formGroup]="form" class="form" (ngSubmit)="submitChanges()" autocomplete="off" novalidate>
+  <div class="form-group row">
+    <label for="id" class="col-sm-2 col-form-label form-control-label">ID</label>
+    <div class="col-sm-6">
+      <input class="form-control" id="id" formControlName="id" type="text">
+      <div class="text-danger" *ngIf="form.get('id').errors">
+        <p *ngIf="form.get('id').hasError('required') && (form.get('id').touched || form.get('id').dirty)">Id is
+          required</p>
+      </div>
+    </div>
+  </div>
+  <div formGroupName="volumeInfo">
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label form-control-label">Title</label>
+      <div class="col-sm-6">
+        <input class="form-control" formControlName="title" type="text">
+        <div class="text-danger" *ngIf="form.get('volumeInfo.title').errors">
+          <p *ngIf="form.get('volumeInfo.title').hasError('required') && (form.get('volumeInfo.title').touched || form.get('volumeInfo.title').dirty)">Title
+            is required</p>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label form-control-label">Published Date</label>
+      <div class="col-sm-6">
+        <input class="form-control" formControlName="publishedDate" type="date">
+        <div class="text-danger" *ngIf="form.get('volumeInfo.publishedDate').errors">
+          <p *ngIf="form.get('volumeInfo.publishedDate').hasError('required') && (form.get('volumeInfo.publishedDate').touched || form.get('volumeInfo.publishedDate').dirty)">Published
+            Date is required</p>
+          <p *ngIf="form.get('volumeInfo.publishedDate').hasError('validDate') && (form.get('volumeInfo.publishedDate').touched || form.get('volumeInfo.publishedDate').dirty)">Published
+            Date is invalid</p>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label form-control-label">Description</label>
+      <div class="col-sm-6">
+        <textarea class="form-control" formControlName="description" type="text"></textarea>
+        <div class="text-danger" *ngIf="form.get('volumeInfo.description').errors">
+          <p *ngIf="form.get('volumeInfo.description').hasError('required') && (form.get('volumeInfo.description').touched || form.get('volumeInfo.description').dirty)">Description
+            is required</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div *ngFor="let author of authors; let i= index;">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label form-control-label">Author</label>
+          <div class="col-sm-6">
+            <input class="form-control" [value]="author" (change)="updateAuthor(i, $event)" type="text">
+            <div class="text-danger" *ngIf="form.get('volumeInfo.authors').errors">
+              <p *ngIf="form.get('volumeInfo.authors').hasError('required') && (form.get('volumeInfo.authors').touched || form.get('volumeInfo.authors').dirty)">Authors
+                is required</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button (click)="addAuthor()" class="btn btn-info btn-sm" type="button">Add an Author</button>
+    </div>
+    <hr />
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <button type="submit" class="btn btn-primary mr-1">Save Changes</button>
+        <button type="button" (click)="cancelEdit.emit()" class="btn btn-outline-primary">Cancel</button>
+      </div>
+    </div>
+  </div>
+</form>

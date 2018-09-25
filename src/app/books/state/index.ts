@@ -91,11 +91,30 @@ export const getBookLoading = createSelector(
     getSearchState,
     fromSearch.getLoading
 );
+export const getCollectionBookIds = createSelector(
+  getBookState,
+  fromBooks.getIds
+);
 
 export const getBookCollection = createSelector(
     getBookEntities,
-    getSearchBookIds,
+    getCollectionBookIds,
     (entities, ids) => {
-        return ids.map(id => entities[id]);
+        return ids.map((id: string | number) => entities[id]);
     }
+);
+
+export const isBookAdded = createSelector(
+  getBookState,
+  fromBooks.isBookAdded
+);
+
+export const isbookUpdated = createSelector(
+  getBookState,
+  fromBooks.isbookUpdated
+);
+
+export const isBookRemoved = createSelector(
+  getBookState,
+  fromBooks.isBookRemoved
 );
