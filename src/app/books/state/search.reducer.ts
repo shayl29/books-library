@@ -13,7 +13,7 @@ const initialState: State = {
   loaded: false,
   loading: false,
   error: '',
-  query: '',
+  query: 'Angular 6',
 };
 
 export function reducer(state = initialState, action: BookActions): State {

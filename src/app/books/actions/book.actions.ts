@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Book } from '../../models/book';
+import { Update } from '@ngrx/entity';
 
 export enum BookActionTypes {
     Search = '[Book] Search',
@@ -15,6 +16,7 @@ export enum BookActionTypes {
     Load = '[Book] Load',
     LoadSuccess = '[Book] Load Success',
     LoadFail = '[Book] Load Fail',
+    ClearFlags = '[Book] Clear Flags'
 }
 
 export class AddBook implements Action {
@@ -32,13 +34,13 @@ export class AddBookSuccess implements Action {
 export class EditBook implements Action {
   readonly type = BookActionTypes.EditBook;
 
-  constructor(public payload: Book) { }
+  constructor(public payload: Update<Book>) { }
 }
 
 export class EditBookSuccess implements Action {
   readonly type = BookActionTypes.EditBookSuccess;
 
-  constructor(public payload: Book) { }
+  constructor(public payload: Update<Book>) { }
 }
 
 export class RemoveBook implements Action {
@@ -95,6 +97,12 @@ export class Select implements Action {
     constructor(public payload: string) { }
 }
 
+export class ClearFlags implements Action {
+    readonly type = BookActionTypes.ClearFlags;
+
+    constructor(public payload: any) { }
+}
+
 export type BookActions =
     | Search
     | SearchComplete
@@ -109,4 +117,5 @@ export type BookActions =
     | RemoveBookSuccess
     | Load
     | LoadSuccess
-    | LoadFail;
+    | LoadFail
+    | ClearFlags;

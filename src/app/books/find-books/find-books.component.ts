@@ -5,7 +5,7 @@ import { take } from 'rxjs/operators';
 import * as BookActions from '../actions/book.actions';
 import * as fromBooks from '../state';
 import { Book, generateMockBook } from '../../models/book';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-find-books',
@@ -20,6 +20,11 @@ export class FindBooksComponent implements OnInit {
 
   selectedBook: Book;
   modalRef: BsModalRef;
+  modalConfig: ModalOptions = {
+    class: 'modal-lg',
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
 
   constructor(
     private store: Store<fromBooks.State>,
@@ -70,7 +75,7 @@ export class FindBooksComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+    this.modalRef = this.modalService.show(template, this.modalConfig);
   }
 
   addBook(book) {
@@ -78,16 +83,15 @@ export class FindBooksComponent implements OnInit {
   }
 
   saveBook(book) {
-    this.store.dispatch(new BookActions.EditBook(book));
+    this.store.dispatch(new BookActions.EditBook({id: this.selectedBook.id, changes: book}));
   }
 
   deleteBook() {
     this.store.dispatch(new BookActions.RemoveBook(this.selectedBook));
-    this.modalRef.hide();
-    // TODO: Delete book from store
   }
 
   private hide() {
+    this.store.dispatch(new BookActions.ClearFlags(null));
     if (this.modalRef) {
       this.modalRef.hide();
     }

@@ -50,7 +50,7 @@ export function reducer(
       }
 
       case BookActionTypes.EditBookSuccess: {
-        const newState = adapter.updateOne({id: action.payload.id, changes: action.payload}, state);
+        const newState = adapter.updateOne(action.payload, state);
         return {
           ...newState,
           bookAdded: false,
@@ -76,6 +76,15 @@ export function reducer(
           bookAdded: false,
           bookUpdated: false,
           bookRemoved: true
+        };
+      }
+
+      case BookActionTypes.ClearFlags: {
+        return {
+          ...state,
+          bookAdded: false,
+          bookUpdated: false,
+          bookRemoved: false
         };
       }
 

@@ -49,18 +49,27 @@ export class BookEffects {
       withLatestFrom(this.store$, (payload, state) => ({ book: payload, state })),
       map(({book, state}) => {
         const srcBook: Book = state.books.books.entities[book.id];
+        if (!srcBook) {
+          const newBook: Book = {
+            id: book.changes.id,
+            volumeInfo: book.changes.volumeInfo
+          };
+          return new AddBookSuccess(newBook);
+        }
+
         const updatedBook: Book = {
           ...srcBook,
-          id: book.id,
+          id: book.changes.id,
           volumeInfo: {
             ...srcBook.volumeInfo,
-            authors: book.volumeInfo.authors,
-            title: book.volumeInfo.title,
-            publishedDate: book.volumeInfo.publishedDate,
-            description: book.volumeInfo.description
+            authors: book.changes.volumeInfo.authors,
+            title: book.changes.volumeInfo.title,
+            publishedDate: book.changes.volumeInfo.publishedDate,
+            description: book.changes.volumeInfo.description
           }
         };
-        return new EditBookSuccess(updatedBook);
+
+        return new EditBookSuccess({id: srcBook.id, changes: updatedBook});
       })
     );
 
