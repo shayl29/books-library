@@ -4,6 +4,7 @@ import { BookActions, BookActionTypes } from '../actions/book.actions';
 
 export interface State extends EntityState<Book> {
     ids: string[] | null;
+    resetListOnSearch: boolean;
     bookAdded: boolean;
     bookUpdated: boolean;
     bookRemoved: boolean;
@@ -16,6 +17,7 @@ export const adapter: EntityAdapter<Book> = createEntityAdapter<Book>({
 });
 export const initialState: State = adapter.getInitialState({
   selectedBookId: null,
+  resetListOnSearch: true,
   bookAdded: false,
   bookUpdated: false,
   bookRemoved: false,
@@ -29,7 +31,8 @@ export function reducer(
     switch (action.type) {
       case BookActionTypes.SearchComplete:
       case BookActionTypes.LoadSuccess: {
-        const newState = adapter.addMany(action.payload, state);
+        const emptyState = adapter.removeAll(state);
+        const newState = adapter.addMany(action.payload, state.resetListOnSearch ? emptyState : state);
         return {
           ...newState,
           bookAdded: false,
@@ -88,6 +91,13 @@ export function reducer(
         };
       }
 
+      case BookActionTypes.ToggleResetList: {
+        return {
+          ...state,
+          resetListOnSearch: action.payload
+        };
+      }
+
       default: {
         return state;
       }
@@ -103,3 +113,5 @@ export const isBookAdded = (state: State) => state.bookAdded;
 export const isbookUpdated = (state: State) => state.bookUpdated;
 
 export const isBookRemoved = (state: State) => state.bookRemoved;
+
+export const isResetOnSearch = (state: State) => state.resetListOnSearch;

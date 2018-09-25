@@ -1,1 +1,1 @@
-<input type="text" tabindex="1" class="form-control" placeholder="Search for a book" [value]="query" (keyup)="search.emit($event.target.value)" />
+<input type="text" #searchBox tabindex="1" class="form-control" placeholder="Search for a book" [value]="query" (keyup)="search.emit(searchBox.value)" />

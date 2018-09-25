@@ -16,7 +16,8 @@ export enum BookActionTypes {
     Load = '[Book] Load',
     LoadSuccess = '[Book] Load Success',
     LoadFail = '[Book] Load Fail',
-    ClearFlags = '[Book] Clear Flags'
+    ClearFlags = '[Book] Clear Flags',
+    ToggleResetList = '[Book] Toggle Reset List',
 }
 
 export class AddBook implements Action {
@@ -103,6 +104,12 @@ export class ClearFlags implements Action {
     constructor(public payload: any) { }
 }
 
+export class ToggleResetList implements Action {
+    readonly type = BookActionTypes.ToggleResetList;
+
+    constructor(public payload: boolean) { }
+}
+
 export type BookActions =
     | Search
     | SearchComplete
@@ -118,4 +125,5 @@ export type BookActions =
     | Load
     | LoadSuccess
     | LoadFail
-    | ClearFlags;
+    | ClearFlags
+    | ToggleResetList;

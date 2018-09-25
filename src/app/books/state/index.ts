@@ -118,3 +118,8 @@ export const isBookRemoved = createSelector(
   getBookState,
   fromBooks.isBookRemoved
 );
+
+export const isResetOnSearch = createSelector(
+  getBookState,
+  fromBooks.isResetOnSearch
+);

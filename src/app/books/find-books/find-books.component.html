@@ -1,14 +1,18 @@
 <div class="row mb-3">
-  <button (click)="showAddModal(addBookTemplate)" class="btn btn-primary text-white ml-2"><i class="fa fa-plus"></i>&nbsp;Add
-    Book</button>
-  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <button (click)="showAddModal(addBookTemplate)" class="btn btn-primary text-white ml-2"><i class="fa fa-plus-circle"></i>&nbsp;Add
+      Book</button>
+  <div class="col-lg-4 col-md-4 col-sm-2 col-xs-2">
     <app-book-search [query]="searchQuery$ | async" [error]="error$ | async" (search)="search($event)"></app-book-search>
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" [checked]="reset$" (change)="toggleResetList($event)" id="resetBooks">
+      <label class="form-check-label" for="resetBooks">Reset book list on search</label>
+    </div>
   </div>
   <div class="col-sm-1">
     <app-loading [show]="loading$ | async"></app-loading>
   </div>
 </div>
-
+<hr/>
 <div class="row">
   <div class="col-sm-12">
     <app-book-list (deleteClicked)="showDeleteModal(deleteBookTemplate, $event)" (editClicked)="showEditModal(editBookTemplate, $event)"

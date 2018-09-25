@@ -17,6 +17,7 @@ export class FindBooksComponent implements OnInit {
   books$: Observable<Book[]>;
   loading$: Observable<boolean>;
   error$: Observable<string>;
+  reset$: Observable<boolean>;
 
   selectedBook: Book;
   modalRef: BsModalRef;
@@ -51,6 +52,7 @@ export class FindBooksComponent implements OnInit {
 
     this.loading$ = store.pipe(select(fromBooks.getBookLoading));
     this.error$ = store.pipe(select(fromBooks.getSearchError));
+    this.reset$ = store.pipe(select(fromBooks.isResetOnSearch));
   }
 
   ngOnInit() {}
@@ -90,7 +92,12 @@ export class FindBooksComponent implements OnInit {
     this.store.dispatch(new BookActions.RemoveBook(this.selectedBook));
   }
 
-  private hide() {
+  toggleResetList(event) {
+    const checked: boolean = event.target.checked;
+    this.store.dispatch(new BookActions.ToggleResetList(checked));
+  }
+
+  hide() {
     this.store.dispatch(new BookActions.ClearFlags(null));
     if (this.modalRef) {
       this.modalRef.hide();
