@@ -14,6 +14,7 @@ import { BookSearchComponent } from './book-search/book-search.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { BookEditorComponent } from './book-editor/book-editor.component';
+import { ComponentsModule } from '../shared/components';
 
 @NgModule({
     imports: [
@@ -23,6 +24,7 @@ import { BookEditorComponent } from './book-editor/book-editor.component';
         StoreModule.forFeature('books', reducers),
         EffectsModule.forFeature([BookEffects]),
         ModalModule.forRoot(),
+        ComponentsModule
     ],
     declarations: [
         FindBooksComponent,

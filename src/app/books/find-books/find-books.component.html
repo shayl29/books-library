@@ -1,58 +1,60 @@
 <div class="row mb-3">
-    <button (click)="showAddModal(addBookTemplate)" class="btn btn-primary text-white ml-2"><i class="fa fa-plus"></i>&nbsp;Add
-        Book</button>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-        <app-book-search [query]="searchQuery$ | async" [searching]="loading$ | async" [error]="error$ | async"
-            (search)="search($event)"></app-book-search>
-    </div>
+  <button (click)="showAddModal(addBookTemplate)" class="btn btn-primary text-white ml-2"><i class="fa fa-plus"></i>&nbsp;Add
+    Book</button>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <app-book-search [query]="searchQuery$ | async" [error]="error$ | async" (search)="search($event)"></app-book-search>
+  </div>
+  <div class="col-sm-1">
+    <app-loading [show]="loading$ | async"></app-loading>
+  </div>
 </div>
 
 <div class="row">
-    <div class="col-sm-12">
-        <app-book-list (deleteClicked)="showDeleteModal(deleteBookTemplate, $event)" (editClicked)="showEditModal(editBookTemplate, $event)"
-            [books]="books$ | async"></app-book-list>
-    </div>
+  <div class="col-sm-12">
+    <app-book-list (deleteClicked)="showDeleteModal(deleteBookTemplate, $event)" (editClicked)="showEditModal(editBookTemplate, $event)"
+      [books]="books$ | async"></app-book-list>
+  </div>
 </div>
 
 <ng-template #addBookTemplate>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Add Book</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <app-book-editor [book]="selectedBook" (cancelEdit)="modalRef.hide()" (doneEdit)="addBook($event)"></app-book-editor>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Book</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-book-editor [book]="selectedBook" (cancelEdit)="modalRef.hide()" (doneEdit)="addBook($event)"></app-book-editor>
+  </div>
 </ng-template>
 
 <ng-template #editBookTemplate>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Edit Book</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <app-book-editor [book]="selectedBook" (cancelEdit)="modalRef.hide()" (doneEdit)="saveBook($event)"></app-book-editor>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Edit Book</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-book-editor [book]="selectedBook" (cancelEdit)="modalRef.hide()" (doneEdit)="saveBook($event)"></app-book-editor>
+  </div>
 </ng-template>
 
 <ng-template #deleteBookTemplate>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Delete&nbsp;<em>'{{selectedBook.volumeInfo.title}}'</em></h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <p>
-            <strong>Caution!</strong> You're about to
-            <span class="text-danger b">Delete</span>&nbsp;<em>'{{selectedBook.volumeInfo.title}}'</em><br />
-            Are you sure you want to proceed?
-        </p>
-        <hr />
-        <button type="button" (click)="deleteBook()" class="btn btn-danger mr-1">Delete</button>
-        <button type="button" class="btn btn-outline-danger" (click)="modalRef.hide()">Cancel</button>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete&nbsp;<em>'{{selectedBook.volumeInfo.title}}'</em></h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      <strong>Caution!</strong> You're about to
+      <span class="text-danger b">Delete</span>&nbsp;<em>'{{selectedBook.volumeInfo.title}}'</em><br />
+      Are you sure you want to proceed?
+    </p>
+    <hr />
+    <button type="button" (click)="deleteBook()" class="btn btn-danger mr-1">Delete</button>
+    <button type="button" class="btn btn-outline-danger" (click)="modalRef.hide()">Cancel</button>
+  </div>
 </ng-template>
