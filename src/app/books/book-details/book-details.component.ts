@@ -8,7 +8,7 @@ import { Book } from '../../models/book';
   styleUrls: ['./book-details.component.scss']
 })
 export class BookDetailsComponent {
-  @Input() book: Observable<Book>;
+  @Input() book: Book;
   @Output() editClicked: EventEmitter<any> = new EventEmitter();
   @Output() deleteClicked: EventEmitter<any> = new EventEmitter();
   @Output() bodyClicked: EventEmitter<any> = new EventEmitter();
