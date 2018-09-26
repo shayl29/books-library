@@ -11,4 +11,5 @@ export class BookDetailsComponent {
   @Input() book: Observable<Book>;
   @Output() editClicked: EventEmitter<any> = new EventEmitter();
   @Output() deleteClicked: EventEmitter<any> = new EventEmitter();
+  @Output() bodyClicked: EventEmitter<any> = new EventEmitter();
 }

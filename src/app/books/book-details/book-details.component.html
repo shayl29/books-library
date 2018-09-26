@@ -1,6 +1,6 @@
 <div class="card bg-dark text-white">
   <img class="card-img-top img-responsive" *ngIf="book.volumeInfo.imageLinks" src="{{book.volumeInfo.imageLinks.smallThumbnail | fixThumbnail}}" alt="Book thumbnail" />
-  <div class="card-body">
+  <div class="card-body" (click)="bodyClicked.emit(book)">
     <h5 class="card-title">{{book.volumeInfo.title | title}}</h5>
     <h6 class="card-subtitle text-muted mb-2">{{book.volumeInfo.subtitle}}</h6>
     <p class="card-text">{{book.volumeInfo.description | ellipsis}}</p>

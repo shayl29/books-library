@@ -15,15 +15,15 @@
 <hr/>
 <div class="row">
   <div class="col-sm-12">
-    <app-book-list (deleteClicked)="showDeleteModal(deleteBookTemplate, $event)" (editClicked)="showEditModal(editBookTemplate, $event)"
+    <app-book-list (deleteClicked)="showDeleteModal(deleteBookTemplate, $event)" (bodyClicked)="showDetailsModal(detailsTemplate, $event)" (editClicked)="showEditModal(editBookTemplate, $event)"
       [books]="books$ | async"></app-book-list>
   </div>
 </div>
 
 <ng-template #addBookTemplate>
-  <div class="modal-header">
+  <div class="modal-header bg-dark text-white">
     <h4 class="modal-title pull-left">Add Book</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="hide()">
+    <button type="button" class="close text-white pull-right" aria-label="Close" (click)="hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -33,9 +33,9 @@
 </ng-template>
 
 <ng-template #editBookTemplate>
-  <div class="modal-header">
+  <div class="modal-header bg-dark text-white">
     <h4 class="modal-title pull-left">Edit Book</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="hide()">
+    <button type="button" class="close text-white pull-right" aria-label="Close" (click)="hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -44,10 +44,33 @@
   </div>
 </ng-template>
 
+<ng-template #detailsTemplate>
+  <div class="modal-header bg-dark text-white">
+    <h5 class="card-title pull-left">'{{selectedBook.volumeInfo.title | title}}'</h5>
+    <button type="button" class="close text-white pull-right" aria-label="Close" (click)="hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h6 class="card-subtitle text-muted mb-2">{{selectedBook.volumeInfo.subtitle}}</h6>
+    <p class="card-text">{{selectedBook.volumeInfo.description}}</p>
+    <hr/>
+    <h6 class="card-subtitle">Written By:</h6>
+    <span>
+      {{selectedBook.volumeInfo.authors | addCommas}}
+    </span>
+    <hr/>
+    <h6 class="card-subtitle">Published Date:</h6>
+    <span>
+      {{selectedBook.volumeInfo.publishedDate | dateFormat:'dd/MM/yyyy'}}
+    </span>
+  </div>
+</ng-template>
+
 <ng-template #deleteBookTemplate>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Delete&nbsp;<em>'{{selectedBook.volumeInfo.title}}'</em></h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="hide()">
+    <button type="button" class="close text-white pull-right" aria-label="Close" (click)="hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>

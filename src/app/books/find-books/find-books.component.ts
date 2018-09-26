@@ -71,6 +71,11 @@ export class FindBooksComponent implements OnInit {
     this.openModal(template);
   }
 
+  showDetailsModal(template: TemplateRef<any>, book: Book) {
+    this.selectedBook = book;
+    this.openModal(template);
+  }
+
   showDeleteModal(template: TemplateRef<any>, book: Book) {
     this.selectedBook = book;
     this.openModal(template);
