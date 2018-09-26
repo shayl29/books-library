@@ -15,6 +15,7 @@ import { BookListComponent } from './book-list/book-list.component';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { BookEditorComponent } from './book-editor/book-editor.component';
 import { ComponentsModule } from '../shared/components';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     imports: [
@@ -24,7 +25,8 @@ import { ComponentsModule } from '../shared/components';
         StoreModule.forFeature('books', reducers),
         EffectsModule.forFeature([BookEffects]),
         ModalModule.forRoot(),
-        ComponentsModule
+        ComponentsModule,
+        ToastrModule.forRoot()
     ],
     declarations: [
         FindBooksComponent,

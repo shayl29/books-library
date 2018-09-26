@@ -6,7 +6,7 @@ export class EllipsisPipe implements PipeTransform {
     if (!str) {
       return;
     }
-    
+
     const withoutHtml = str.replace(/(<([^>]+)>)/gi, '');
 
     if (str.length >= strLength) {

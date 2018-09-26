@@ -25,6 +25,7 @@ import {
   EditBookSuccess} from '../actions/book.actions';
 import { Book } from '../../models/book';
 import * as fromBook from '../state';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class BookEffects {
@@ -35,7 +36,10 @@ export class BookEffects {
     this.actions$.pipe(
       ofType<AddBook>(BookActionTypes.AddBook),
       debounceTime(debounce, scheduler),
-      map(action => new AddBookSuccess(action.payload))
+      map(action => {
+        this.toastr.success('Book added succesfully', 'Add Book');
+        return new AddBookSuccess(action.payload);
+      })
     );
 
   @Effect()
@@ -54,6 +58,8 @@ export class BookEffects {
             id: book.changes.id,
             volumeInfo: book.changes.volumeInfo
           };
+
+          this.toastr.success('Book added succesfully', 'Add Book');
           return new AddBookSuccess(newBook);
         }
 
@@ -69,6 +75,7 @@ export class BookEffects {
           }
         };
 
+        this.toastr.success('Book updated succesfully', 'Edit Book');
         return new EditBookSuccess({id: srcBook.id, changes: updatedBook});
       })
     );
@@ -80,7 +87,10 @@ export class BookEffects {
     this.actions$.pipe(
       ofType<RemoveBook>(BookActionTypes.RemoveBook),
       debounceTime(debounce, scheduler),
-      map(action => new RemoveBookSuccess(action.payload))
+      map(action => {
+        this.toastr.success('Book removed succesfully', 'Remove Book');
+        return new RemoveBookSuccess(action.payload);
+      })
     );
 
   @Effect()
@@ -112,6 +122,10 @@ export class BookEffects {
   constructor(
     private actions$: Actions,
     private store$: Store<fromBook.State>,
-    private googleBooks: GoogleBooksService
-  ) {}
+    private googleBooks: GoogleBooksService,
+    private toastr: ToastrService
+  ) {
+    toastr.toastrConfig.positionClass = 'toast-bottom-right';
+    toastr.toastrConfig.easing = 'fade';
+  }
 }
