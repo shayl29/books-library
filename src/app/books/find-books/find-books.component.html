@@ -28,7 +28,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-book-editor [book]="selectedBook" (cancelEdit)="hide()" (doneEdit)="addBook($event)"></app-book-editor>
+    <app-book-editor [book]="selectedBook" [books]="books$ | async" (cancelEdit)="hide()" (doneEdit)="addBook($event)"></app-book-editor>
   </div>
 </ng-template>
 
@@ -40,7 +40,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-book-editor [book]="selectedBook" (cancelEdit)="hide()" (doneEdit)="saveBook($event)"></app-book-editor>
+    <app-book-editor [book]="selectedBook" [books]="books$ | async" (cancelEdit)="hide()" (doneEdit)="saveBook($event)"></app-book-editor>
   </div>
 </ng-template>
 

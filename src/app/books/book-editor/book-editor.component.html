@@ -17,6 +17,8 @@
         <div class="text-danger" *ngIf="form.get('volumeInfo.title').errors">
           <p *ngIf="form.get('volumeInfo.title').hasError('required') && (form.get('volumeInfo.title').touched || form.get('volumeInfo.title').dirty)">Title
             is required</p>
+          <p *ngIf="form.get('volumeInfo.title').hasError('titleTaken') && (form.get('volumeInfo.title').touched || form.get('volumeInfo.title').dirty)">Title
+            is taken</p>
         </div>
       </div>
     </div>

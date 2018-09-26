@@ -5,9 +5,10 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Book } from '../../models/book';
 import { DateValidator } from '../../shared/validators/date.validator';
+import { ValidateTitleNotTaken } from '../../shared/validators/title-not-taken.validator';
 
 @Component({
   selector: 'app-book-editor',
@@ -17,10 +18,13 @@ import { DateValidator } from '../../shared/validators/date.validator';
 export class BookEditorComponent implements OnChanges {
   @Input()
   book: Book;
+  @Input()
+  books: Book[];
   @Output()
   cancelEdit = new EventEmitter();
   @Output()
   doneEdit = new EventEmitter<Book>();
+
   form: FormGroup;
 
   get authors(): String[] {
@@ -34,20 +38,33 @@ export class BookEditorComponent implements OnChanges {
   }
 
   submitChanges() {
-    this.doneEdit.emit({
-      ...this.form.value,
-      volumeInfo: {
-        ...this.form.value.volumeInfo,
-        authors: this.authors.filter(a => a !== '')
-      }
-    });
+    // tslint:disable-next-line:forin
+    for (const c in this.form.controls) {
+      this.form.controls[c].markAsTouched();
+    }
+
+    if (this.form.valid) {
+      this.doneEdit.emit({
+        ...this.form.value,
+        volumeInfo: {
+          ...this.form.value.volumeInfo,
+          authors: this.authors.filter(a => a !== '')
+        }
+      });
+    }
   }
 
   initForm() {
     this.form = this.fb.group({
       id: [this.book.id || '', Validators.required],
       volumeInfo: this.fb.group({
-        title: [this.book.volumeInfo.title || '', Validators.required],
+        title: [
+          this.book.volumeInfo.title || '',
+          Validators.compose([
+            Validators.required,
+            ValidateTitleNotTaken.createValidator(this.books, this.book.id)
+          ])
+        ],
         publishedDate: [
           this.formatDate(this.book.volumeInfo.publishedDate) || '',
           Validators.compose([Validators.required, DateValidator.validDate])
