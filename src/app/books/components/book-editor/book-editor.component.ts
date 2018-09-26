@@ -5,10 +5,11 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Book } from '../../../models/book';
 import { DateValidator } from '../../../shared/validators/date.validator';
 import { ValidateTitleNotTaken } from '../../../shared/validators/title-not-taken.validator';
+import { ImgUrlValidator } from '../../../shared/validators/img-url.validator';
 
 @Component({
   selector: 'app-book-editor',
@@ -29,6 +30,10 @@ export class BookEditorComponent implements OnChanges {
 
   get authors(): String[] {
     return this.form.get('volumeInfo.authors').value;
+  }
+
+  get imageLink() {
+    return this.form.get('volumeInfo.imageLinks.smallThumbnail') as FormControl;
   }
 
   constructor(private fb: FormBuilder) {}
@@ -71,7 +76,7 @@ export class BookEditorComponent implements OnChanges {
         ],
         authors: [[''], Validators.required],
         imageLinks: this.fb.group({
-          smallThumbnail: [this.book.volumeInfo.imageLinks.smallThumbnail]
+          smallThumbnail: [this.book.volumeInfo.imageLinks.smallThumbnail || 'https://', ImgUrlValidator.validImgUrl]
         }),
         description: [
           this.book.volumeInfo.description || '',

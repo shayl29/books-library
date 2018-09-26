@@ -29,8 +29,8 @@ export function generateMockBook(): Book {
             averageRating: 3,
             ratingsCount: 5,
             imageLinks: {
-                thumbnail: '',
-                smallThumbnail: '',
+                thumbnail: 'https://',
+                smallThumbnail: 'https://',
             },
         },
     };
