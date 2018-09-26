@@ -2,18 +2,18 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
-import * as BookActions from '../actions/book.actions';
-import * as fromBooks from '../state';
-import * as fromRoot from '../../store/reducers';
-import { Book, generateMockBook } from '../../models/book';
+import * as BookActions from '../../actions/book.actions';
+import * as fromBooks from '../../state';
+import * as fromRoot from '../../../store/reducers';
+import { Book, generateMockBook } from '../../../models/book';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 
 @Component({
-  selector: 'app-find-books',
-  templateUrl: './find-books.component.html',
-  styleUrls: ['./find-books.component.scss']
+  selector: 'app-books',
+  templateUrl: './books.component.html',
+  styleUrls: ['./books.component.scss']
 })
-export class FindBooksComponent implements OnInit {
+export class BooksComponent implements OnInit {
   searchQuery$: Observable<string>;
   books$: Observable<Book[]>;
   loading$: Observable<boolean>;

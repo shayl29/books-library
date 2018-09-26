@@ -1,6 +1,6 @@
 import { Component, Input, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Book } from '../../models/book';
+import { Book } from '../../../models/book';
 
 @Component({
   selector: 'app-book-list',

@@ -6,9 +6,9 @@ import {
   EventEmitter
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Book } from '../../models/book';
-import { DateValidator } from '../../shared/validators/date.validator';
-import { ValidateTitleNotTaken } from '../../shared/validators/title-not-taken.validator';
+import { Book } from '../../../models/book';
+import { DateValidator } from '../../../shared/validators/date.validator';
+import { ValidateTitleNotTaken } from '../../../shared/validators/title-not-taken.validator';
 
 @Component({
   selector: 'app-book-editor',
