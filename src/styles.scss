@@ -3,6 +3,14 @@
 @import "~bootstrap/scss/bootstrap-grid.scss";
 @import "~bootstrap/scss/bootstrap.scss";
 
-@import "~font-awesome/css/font-awesome.css";
+$fa-font-path: "~font-awesome/fonts";
+
+@import "~font-awesome/scss/font-awesome";
 
 @import '~ngx-toastr/toastr-bs4-alert';
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,700,700i');
+
+body {
+  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+}
