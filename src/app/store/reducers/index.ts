@@ -1,7 +1,9 @@
 import {
   ActionReducer,
   ActionReducerMap,
-  MetaReducer
+  MetaReducer,
+  createFeatureSelector,
+  createSelector
 } from '@ngrx/store';
 
 import { storeFreeze } from 'ngrx-store-freeze';
@@ -28,3 +30,10 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
     return reducer(state, action);
   };
 }
+
+export const getRouterState = createFeatureSelector<fromRouter.RouterReducerState>('router');
+
+export const getQueryParams = createSelector(
+  getRouterState,
+  state => state.state.root.queryParams
+);

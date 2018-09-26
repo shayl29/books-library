@@ -26,6 +26,7 @@ import {
 import { Book } from '../../models/book';
 import * as fromBook from '../state';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class BookEffects {
@@ -40,7 +41,7 @@ export class BookEffects {
         this.toastr.success('Book added succesfully', 'Add Book');
         return new AddBookSuccess(action.payload);
       })
-    );
+    )
 
   @Effect()
   editBook$ = ({ debounce = 300, scheduler = asyncScheduler } = {}): Observable<
@@ -82,7 +83,7 @@ export class BookEffects {
         this.toastr.success('Book updated succesfully', 'Edit Book');
         return new EditBookSuccess({id: srcBook.id, changes: updatedBook});
       })
-    );
+    )
 
   @Effect()
   removeBook$ = ({ debounce = 300, scheduler = asyncScheduler} = {}): Observable<
@@ -95,7 +96,7 @@ export class BookEffects {
         this.toastr.success('Book removed succesfully', 'Remove Book');
         return new RemoveBookSuccess(action.payload);
       })
-    );
+    )
 
   @Effect()
   search$ = ({ debounce = 300, scheduler = asyncScheduler } = {}): Observable<
@@ -117,17 +118,25 @@ export class BookEffects {
 
         return this.googleBooks.searchBooks(query).pipe(
           takeUntil(nextSearch$),
-          map((books: Book[]) => new SearchComplete(books)),
+          map((books: Book[]) => {
+            this.router.navigate([], {
+              queryParams: { query: query },
+              queryParamsHandling: 'merge',
+            });
+
+            return new SearchComplete(books);
+          }),
           catchError(err => of(new SearchError(err)))
         );
       })
-    );
+    )
 
   constructor(
     private actions$: Actions,
     private store$: Store<fromBook.State>,
     private googleBooks: GoogleBooksService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {
     toastr.toastrConfig.positionClass = 'toast-bottom-right';
     toastr.toastrConfig.easing = 'fade';

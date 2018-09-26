@@ -4,6 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import * as BookActions from '../actions/book.actions';
 import * as fromBooks from '../state';
+import * as fromRoot from '../../store/reducers';
 import { Book, generateMockBook } from '../../models/book';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 
@@ -38,24 +39,22 @@ export class FindBooksComponent implements OnInit {
 
     this.books$ = store.pipe(select(fromBooks.getBookCollection));
 
-    store
-      .pipe(select(fromBooks.isBookAdded))
-      .subscribe(() => this.hide());
+    store.pipe(select(fromBooks.isBookAdded)).subscribe(() => this.hide());
 
-    store
-      .pipe(select(fromBooks.isbookUpdated))
-      .subscribe(() => this.hide());
+    store.pipe(select(fromBooks.isbookUpdated)).subscribe(() => this.hide());
 
-    store
-      .pipe(select(fromBooks.isBookRemoved))
-      .subscribe(() => this.hide());
+    store.pipe(select(fromBooks.isBookRemoved)).subscribe(() => this.hide());
 
     this.loading$ = store.pipe(select(fromBooks.getBookLoading));
     this.error$ = store.pipe(select(fromBooks.getSearchError));
     this.reset$ = store.pipe(select(fromBooks.isResetOnSearch));
+
+    this.urlQuery();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.searchQuery$.subscribe(query => this.search(query));
+  }
 
   search(query: string) {
     this.store.dispatch(new BookActions.Search(query));
@@ -90,7 +89,7 @@ export class FindBooksComponent implements OnInit {
   }
 
   saveBook(book) {
-    this.store.dispatch(new BookActions.EditBook({id: this.selectedBook.id, changes: book}));
+    this.store.dispatch(new BookActions.EditBook({ id: this.selectedBook.id, changes: book }));
   }
 
   deleteBook() {
@@ -107,5 +106,16 @@ export class FindBooksComponent implements OnInit {
     if (this.modalRef) {
       this.modalRef.hide();
     }
+  }
+
+  urlQuery() {
+    this.store.pipe(
+      select(fromRoot.getQueryParams),
+      take(1)
+    ).subscribe(queryParams => {
+      if (queryParams && queryParams.query) {
+        this.search(queryParams.query);
+      }
+    });
   }
 }
