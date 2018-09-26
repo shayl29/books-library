@@ -71,7 +71,11 @@ export class BookEffects {
             authors: book.changes.volumeInfo.authors,
             title: book.changes.volumeInfo.title,
             publishedDate: book.changes.volumeInfo.publishedDate,
-            description: book.changes.volumeInfo.description
+            description: book.changes.volumeInfo.description,
+            imageLinks: {
+              ...srcBook.volumeInfo.imageLinks,
+              smallThumbnail: book.changes.volumeInfo.imageLinks.smallThumbnail
+            }
           }
         };
 

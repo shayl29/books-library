@@ -44,6 +44,14 @@
         </div>
       </div>
     </div>
+    <div formGroupName="imageLinks">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label form-control-label">Image Url</label>
+        <div class="col-sm-6">
+          <input class="form-control" formControlName="smallThumbnail" type="url" />
+        </div>
+      </div>
+    </div>
     <div>
       <div *ngFor="let author of authors; let i= index;">
         <div class="form-group row">

@@ -70,6 +70,9 @@ export class BookEditorComponent implements OnChanges {
           Validators.compose([Validators.required, DateValidator.validDate])
         ],
         authors: [[''], Validators.required],
+        imageLinks: this.fb.group({
+          smallThumbnail: [this.book.volumeInfo.imageLinks.smallThumbnail]
+        }),
         description: [
           this.book.volumeInfo.description || '',
           Validators.required
