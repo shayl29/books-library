@@ -80,7 +80,14 @@ export class BookEffects {
           }
         };
 
-        this.toastr.success('Book updated succesfully', 'Edit Book');
+        const nothingChanged = JSON.stringify(srcBook).toLowerCase() === JSON.stringify(updatedBook).toLowerCase();
+
+        if (nothingChanged) {
+          this.toastr.warning('Nothing to update', 'Edit Book');
+        } else {
+          this.toastr.success('Book updated succesfully', 'Edit Book');
+        }
+
         return new EditBookSuccess({id: srcBook.id, changes: updatedBook});
       })
     )

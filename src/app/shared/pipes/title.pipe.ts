@@ -6,7 +6,7 @@ export class TitlePipe implements PipeTransform {
         if (!input) {
             return '';
         } else {
-            let alphaNumStr = input.replace(/[^a-zA-Z0-9 ]/g, '') 
+            const alphaNumStr = input.replace(/[^a-zA-Z0-9 ]/g, '');
             return alphaNumStr.replace(/\w\S*/g, (txt => txt[0].toUpperCase() + txt.substr(1).toLowerCase() ));
         }
     }

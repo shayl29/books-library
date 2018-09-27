@@ -17,16 +17,13 @@ import { ImgUrlValidator } from '../../../shared/validators/img-url.validator';
   styleUrls: ['./book-editor.component.scss']
 })
 export class BookEditorComponent implements OnChanges {
-  @Input()
-  book: Book;
-  @Input()
-  books: Book[];
-  @Output()
-  cancelEdit = new EventEmitter();
-  @Output()
-  doneEdit = new EventEmitter<Book>();
+  @Input() book: Book;
+  @Input() books: Book[];
+  @Output() cancelEdit = new EventEmitter();
+  @Output() doneEdit = new EventEmitter<Book>();
 
   form: FormGroup;
+  submitted: boolean;
 
   get authors(): String[] {
     return this.form.get('volumeInfo.authors').value;
@@ -43,10 +40,7 @@ export class BookEditorComponent implements OnChanges {
   }
 
   submitChanges() {
-    // tslint:disable-next-line:forin
-    for (const c in this.form.controls) {
-      this.form.controls[c].markAsTouched();
-    }
+    this.submitted = true;
 
     if (this.form.valid) {
       this.doneEdit.emit({
@@ -60,6 +54,8 @@ export class BookEditorComponent implements OnChanges {
   }
 
   initForm() {
+    this.submitted = false;
+
     this.form = this.fb.group({
       id: [this.book.id || '', Validators.required],
       volumeInfo: this.fb.group({
@@ -76,7 +72,7 @@ export class BookEditorComponent implements OnChanges {
         ],
         authors: [[''], Validators.required],
         imageLinks: this.fb.group({
-          smallThumbnail: [this.book.volumeInfo.imageLinks.smallThumbnail || 'https://', ImgUrlValidator.validImgUrl]
+          smallThumbnail: [this.book.volumeInfo.imageLinks.smallThumbnail, ImgUrlValidator.validImgUrl]
         }),
         description: [
           this.book.volumeInfo.description || '',

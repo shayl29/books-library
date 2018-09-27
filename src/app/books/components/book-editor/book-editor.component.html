@@ -4,7 +4,7 @@
     <div class="col-sm-6">
       <input class="form-control" id="id" formControlName="id" type="text">
       <div class="text-danger" *ngIf="form.get('id').errors">
-        <p *ngIf="form.get('id').hasError('required') && (form.get('id').touched || form.get('id').dirty)">Id is
+        <p *ngIf="form.get('id').hasError('required') && (submitted || form.get('id').touched || form.get('id').dirty)">Id is
           required</p>
       </div>
     </div>
@@ -15,9 +15,9 @@
       <div class="col-sm-6">
         <input class="form-control" formControlName="title" type="text">
         <div class="text-danger" *ngIf="form.get('volumeInfo.title').errors">
-          <p *ngIf="form.get('volumeInfo.title').hasError('required') && (form.get('volumeInfo.title').touched || form.get('volumeInfo.title').dirty)">Title
+          <p *ngIf="form.get('volumeInfo.title').hasError('required') && (submitted || form.get('volumeInfo.title').touched || form.get('volumeInfo.title').dirty)">Title
             is required</p>
-          <p *ngIf="form.get('volumeInfo.title').hasError('titleTaken') && (form.get('volumeInfo.title').touched || form.get('volumeInfo.title').dirty)">Title
+          <p *ngIf="form.get('volumeInfo.title').hasError('titleTaken') && (submitted || form.get('volumeInfo.title').touched || form.get('volumeInfo.title').dirty)">Title
             is taken</p>
         </div>
       </div>
@@ -29,7 +29,7 @@
         <div class="text-danger" *ngIf="form.get('volumeInfo.publishedDate').errors">
           <p *ngIf="form.get('volumeInfo.publishedDate').hasError('required') && (form.get('volumeInfo.publishedDate').touched || form.get('volumeInfo.publishedDate').dirty)">Published
             Date is required</p>
-          <p *ngIf="form.get('volumeInfo.publishedDate').hasError('validDate') && (form.get('volumeInfo.publishedDate').touched || form.get('volumeInfo.publishedDate').dirty)">Published
+          <p *ngIf="form.get('volumeInfo.publishedDate').hasError('validDate') && (submitted || form.get('volumeInfo.publishedDate').touched || form.get('volumeInfo.publishedDate').dirty)">Published
             Date is invalid</p>
         </div>
       </div>
@@ -39,7 +39,7 @@
       <div class="col-sm-6">
         <textarea class="form-control" formControlName="description" type="text"></textarea>
         <div class="text-danger" *ngIf="form.get('volumeInfo.description').errors">
-          <p *ngIf="form.get('volumeInfo.description').hasError('required') && (form.get('volumeInfo.description').touched || form.get('volumeInfo.description').dirty)">Description
+          <p *ngIf="form.get('volumeInfo.description').hasError('required') && (submitted || form.get('volumeInfo.description').touched || form.get('volumeInfo.description').dirty)">Description
             is required</p>
         </div>
       </div>
@@ -48,9 +48,9 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label form-control-label">Image Url</label>
         <div class="col-sm-6">
-          <input class="form-control" formControlName="smallThumbnail" type="url" />
+          <input class="form-control" placeholder="https://" formControlName="smallThumbnail" type="url" />
           <div class="text-danger" *ngIf="imageLink.errors">
-            <p *ngIf="imageLink.hasError('validImgUrl') && (imageLink.touched || imageLink.dirty)">Image Url must start with 'https://'</p>
+            <p *ngIf="imageLink.hasError('validImgUrl') && (submitted || imageLink.touched || imageLink.dirty)">Image Url must start with 'https://'</p>
           </div>
         </div>
       </div>
@@ -62,7 +62,7 @@
           <div class="col-sm-6">
             <input class="form-control" [value]="author" (change)="updateAuthor(i, $event)" type="text">
             <div class="text-danger" *ngIf="form.get('volumeInfo.authors').errors">
-              <p *ngIf="form.get('volumeInfo.authors').hasError('required') && (form.get('volumeInfo.authors').touched || form.get('volumeInfo.authors').dirty)">Authors
+              <p *ngIf="form.get('volumeInfo.authors').hasError('required') && (submitted || form.get('volumeInfo.authors').touched || form.get('volumeInfo.authors').dirty)">Authors
                 is required</p>
             </div>
           </div>
