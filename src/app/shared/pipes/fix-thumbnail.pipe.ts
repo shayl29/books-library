@@ -6,7 +6,7 @@ export class FixThumbnailPipe implements PipeTransform {
         if (!url) {
             return 'assets/nopic.png';
         }
-        const fixedUrl = url.replace('http', 'https').replace('zoom=5&edge=curl&', '');
+        const fixedUrl = url.replace('http://', 'https://').replace('zoom=5&edge=curl&', '');
         return fixedUrl;
     }
 }
