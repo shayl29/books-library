@@ -56,7 +56,6 @@ export function reducer(
 
       case BookActionTypes.AddBookSuccess: {
         const newState = adapter.addOne(action.payload, state);
-        console.log(newState);
         return {
           ...newState,
           done: true,
