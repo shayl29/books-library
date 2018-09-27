@@ -1,0 +1,41 @@
+<ng-template #addBookTemplate>
+  <app-book-modal [title]="'Add Book'" (hide)="hide()">
+    <app-book-editor [book]="book" [books]="books$ | async" (cancelEdit)="hide()" (doneEdit)="addBook.emit($event)"></app-book-editor>
+  </app-book-modal>
+</ng-template>
+
+<ng-template #editBookTemplate>
+  <app-book-modal [title]="'Edit Book'" (hide)="hide()">
+    <app-book-editor [book]="book" [books]="books$ | async" (cancelEdit)="hide()" (doneEdit)="editBook.emit({id: book.id, book: $event})"></app-book-editor>
+  </app-book-modal>
+</ng-template>
+
+<ng-template #detailsBookTemplate>
+  <app-book-modal title="{{book.volumeInfo.title | title}}" (hide)="hide()">
+    <h5 class="card-subtitle mb-2">{{book.volumeInfo.subtitle}}</h5>
+    <p class="card-text">{{book.volumeInfo.description}}</p>
+    <hr />
+    <h6 class="card-subtitle">Written By:</h6>
+    <span>
+      {{book.volumeInfo.authors | addCommas}}
+    </span>
+    <hr />
+    <h6 class="card-subtitle">Published Date:</h6>
+    <span>
+      {{book.volumeInfo.publishedDate | dateFormat:'dd/MM/yyyy'}}
+    </span>
+  </app-book-modal>
+</ng-template>
+
+<ng-template #deleteBookTemplate>
+  <app-book-modal title="Delete {{book.volumeInfo.title | title}}" (hide)="hide()">
+    <p>
+      <strong>Caution!</strong> You're about to
+      <span class="text-danger b">Delete</span>&nbsp;<em>'{{book.volumeInfo.title}}'</em><br />
+      Are you sure you want to proceed?
+    </p>
+    <hr />
+    <button type="button" (click)="removeBook.emit(book)" class="btn btn-danger mr-1">Delete</button>
+    <button type="button" class="btn btn-outline-danger" (click)="hide()">Cancel</button>
+  </app-book-modal>
+</ng-template>

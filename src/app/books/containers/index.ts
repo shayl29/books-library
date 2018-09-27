@@ -4,10 +4,12 @@ import { PipesModule } from '../../shared/pipes';
 import { CommonModule } from '@angular/common';
 import { BooksComponentsModule } from '../components';
 import { ComponentsModule } from '../../shared/components';
-import { BooksComponent } from './books/books.component';
+import { BooksPageComponent } from './books-page/books-page.component';
+import { BookModalFactoryComponent } from './book-modal-factory/book-modal-factory.component';
 
 const containers = [
-  BooksComponent
+  BookModalFactoryComponent,
+  BooksPageComponent
 ];
 
 @NgModule({

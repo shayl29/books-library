@@ -18,7 +18,7 @@ export interface Book {
 
 export function generateMockBook(): Book {
     return {
-        id: '1',
+        id: '_' + Math.random().toString(36).substr(2, 9),
         volumeInfo: {
             title: 'title',
             subtitle: 'subtitle',

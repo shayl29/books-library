@@ -104,19 +104,9 @@ export const getBookCollection = createSelector(
     }
 );
 
-export const isBookAdded = createSelector(
+export const isDone = createSelector(
   getBookState,
-  fromBooks.isBookAdded
-);
-
-export const isbookUpdated = createSelector(
-  getBookState,
-  fromBooks.isbookUpdated
-);
-
-export const isBookRemoved = createSelector(
-  getBookState,
-  fromBooks.isBookRemoved
+  fromBooks.isDone
 );
 
 export const isResetOnSearch = createSelector(

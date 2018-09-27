@@ -9,13 +9,15 @@ import { CommonModule } from '@angular/common';
 import { BookListComponent } from './book-list/book-list.component';
 import { FindBooksComponent } from './find-books/find-books.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BookModalComponent } from './book-modal/book-modal.component';
 
 const components = [
   BookSearchComponent,
   BookDetailsComponent,
   BookEditorComponent,
   BookListComponent,
-  FindBooksComponent
+  FindBooksComponent,
+  BookModalComponent
 ];
 
 @NgModule({

@@ -5,9 +5,7 @@ import { BookActions, BookActionTypes } from '../actions/book.actions';
 export interface State extends EntityState<Book> {
     ids: string[] | null;
     resetListOnSearch: boolean;
-    bookAdded: boolean;
-    bookUpdated: boolean;
-    bookRemoved: boolean;
+    done: boolean;
     selectedBookId: string | null;
 }
 
@@ -18,9 +16,7 @@ export const adapter: EntityAdapter<Book> = createEntityAdapter<Book>({
 export const initialState: State = adapter.getInitialState({
   selectedBookId: null,
   resetListOnSearch: true,
-  bookAdded: false,
-  bookUpdated: false,
-  bookRemoved: false,
+  done: false,
   ids: []
 });
 
@@ -35,9 +31,7 @@ export function reducer(
         const newState = adapter.addMany(action.payload, state.resetListOnSearch ? emptyState : state);
         return {
           ...newState,
-          bookAdded: false,
-          bookUpdated: false,
-          bookRemoved: false
+          done: false
         };
       }
 
@@ -56,19 +50,16 @@ export function reducer(
         const newState = adapter.updateOne(action.payload, state);
         return {
           ...newState,
-          bookAdded: false,
-          bookUpdated: true,
-          bookRemoved: false
+          done: true,
         };
       }
 
       case BookActionTypes.AddBookSuccess: {
         const newState = adapter.addOne(action.payload, state);
+        console.log(newState);
         return {
           ...newState,
-          bookAdded: true,
-          bookUpdated: false,
-          bookRemoved: false
+          done: true,
         };
       }
 
@@ -76,18 +67,14 @@ export function reducer(
         const newState = adapter.removeOne(action.payload.id, state);
         return {
           ...newState,
-          bookAdded: false,
-          bookUpdated: false,
-          bookRemoved: true
+          done: true
         };
       }
 
       case BookActionTypes.ClearFlags: {
         return {
           ...state,
-          bookAdded: false,
-          bookUpdated: false,
-          bookRemoved: false
+          done: false
         };
       }
 
@@ -108,10 +95,6 @@ export const getIds = (state: State) => state.ids;
 
 export const getSelectedId = (state: State) => state.selectedBookId;
 
-export const isBookAdded = (state: State) => state.bookAdded;
-
-export const isbookUpdated = (state: State) => state.bookUpdated;
-
-export const isBookRemoved = (state: State) => state.bookRemoved;
+export const isDone = (state: State) => state.done;
 
 export const isResetOnSearch = (state: State) => state.resetListOnSearch;

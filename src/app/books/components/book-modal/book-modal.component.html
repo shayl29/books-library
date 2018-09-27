@@ -1,0 +1,9 @@
+<div class="modal-header bg-dark text-white">
+  <h4 class="modal-title pull-left">{{title}}</h4>
+  <button type="button" class="close text-white pull-right" aria-label="Close" (click)="hide.emit()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <ng-content></ng-content>
+</div>

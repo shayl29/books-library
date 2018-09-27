@@ -1,0 +1,25 @@
+<app-find-books
+  [books$]="books$"
+  [error$]="error$"
+  [loading$]="loading$"
+  [reset$]="reset$"
+  [searchQuery$]="searchQuery$"
+  (addButtonClicked)="showModal('add', null)"
+  (resetCheckChanged)="toggleResetList($event)"
+  (search)="search($event)"></app-find-books>
+
+<div class="row">
+  <div class="col-sm-12">
+    <app-book-list (deleteClicked)="showModal('delete', $event)" (bodyClicked)="showModal('details', $event)"
+      (editClicked)="showModal('edit', $event)" [books]="books$ | async"></app-book-list>
+  </div>
+</div>
+
+<app-book-modal-factory
+  [book]="selectedBook"
+  [books$]="books$"
+  [shouldHide]="done$"
+  (addBook)="addBook($event)"
+  (editBook)="saveBook($event)"
+  (removeBook)="deleteBook($event)"
+  (modalHide)="hide()"></app-book-modal-factory>
